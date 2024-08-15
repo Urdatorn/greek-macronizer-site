@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Α Macronizer for Ancient Greek 0.1</title>
+</head>
+<body>
+    <h1>Macron Search</h1>
+    <input type="text" id="searchBox" placeholder="Enter name">
+    <button onclick="searchTSV()">Search</button>
+    <p id="result"></p>
+
+    <script>
+        async function searchTSV() {
+            const searchValue = document.getElementById('searchBox').value.trim().toLowerCase();
+            const response = await fetch('macrons_alg4_barytone.tsv');
+            const tsvData = await response.text();
+            
+            const lines = tsvData.split('\n').slice(1); // Skip the header
+            let result = "Not found";
+
+            for (const line of lines) {
+                const columns = line.split('\t');
+                const name = columns[0].trim().toLowerCase();
+                const resultCol = columns[3];
+                let sourceCol = columns[4];
+                
+                if (name === searchValue) {
+                    if (sourceCol.trim().toLowerCase() === 'breve_ultima') {
+                        sourceCol = 'Morphological tables for breve on the ultima';
+                    }
+                    result = `Result: ${resultCol} (Source: ${sourceCol})`;
+                    break;
+                }
+            }
+
+            document.getElementById('result').textContent = result;
+        }
+    </script>
+</body>
+</html>
