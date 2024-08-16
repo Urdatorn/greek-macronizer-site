@@ -39628,16 +39628,16 @@ token	tag	lemma	macron	source
 φροντίδ’	n-s---fa-	φροντίδ		
 φροντιεῖ	v3spia---	φροντιέω		
 φροντιούμεθα	v1ppie---	φροντιέω	^12	breve_ultima
-φρόντιζ’	v2spme---	φρόντιζ		
-φρόντιζ’	v2spma---	φρόντιζ’μι		
-φροντίζεθ’	v2ppma---	φροντίζεθ		
-φροντίζετε	v2ppma---	φροντίζω		
-φροντίζομεν	v1ppia---	φροντίζω		
-φροντίζων	v-sppamn-	φροντίζω		
-φροντίσαι	v--ana---	φροντίζω		
-φροντίσας	v-sapamn-	φροντίζω	_8	ifthimos
+φρόντιζ’	v2spme---	φροντίζω	^6	manual
+φρόντιζ’	v2spma---	φροντίζω	^6	manual
+φροντίζεθ’	v2ppma---	φροντίζω	^6	manual
+φροντίζετε	v2ppma---	φροντίζω	^6	manual
+φροντίζομεν	v1ppia---	φροντίζω	^6	manual
+φροντίζων	v-sppamn-	φροντίζω	^6	manual
+φροντίσαι	v--ana---	φροντίζω	^6	manual
+φροντίσας	v-sapamn-	φροντίζω	^6_8	ifthimos,manual
 φρόντισον	v2sama---	φροντίζω	^6	hypotactic
-φρόντιζε	v2spma---	φρόντιζω		
+φρόντιζε	v2spma---	φροντίζω	^6	manual
 φροντίδα	n-s---fa-	φροντίς	^6^8	wiktionary
 φροντίδας	n-p---fa-	φροντίς	^6^8	wiktionary
 φροντίδες	n-p---fn-	φροντίς	^6	wiktionary
@@ -39647,9 +39647,8 @@ token	tag	lemma	macron	source
 φροντίς	n-s---fn-	φροντίς	^6	wiktionary
 φροντὶς	n-s---fn-	φροντίς	^6	barytone
 φροντίσιν	n-p---fd-	φροντίς	^6^8	wiktionary
-φροντίσαι	v--ana---	φροντίσαι		
-φροντίσῃς	v2sasa---	φροντίσῃς		
-φροντιστέον	v2dpma---	φροντιστέον		
+φροντίσῃς	v2sasa---	φροντίζω	^6	manual
+φροντιστέον	v2dpma---	φροντίζω	^6	manual
 φρουρά	n-s---fd-	φρουρά	_6	wiktionary
 φρουρά	n-s---fn-	φρουρά	_6	wiktionary
 φρουρὰ	n-s---fn-	φρουρά	_6	barytone

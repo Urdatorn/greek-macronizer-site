@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Α Macronizer for Ancient Greek 0.1</title>
+    <style>
+        @font-face {
+            font-family: 'New Athena Unicode';
+            src: url('fonts/new-athena-unicode.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: sans-serif; /* Use default font */
+        }
+
+        #searchBox {
+            font-family: 'New Athena Unicode', sans-serif;
+        }
+
+        .search-input {
+            font-family: 'New Athena Unicode', sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h1>Macron Search</h1>
@@ -12,8 +32,47 @@
     <p id="result"></p>
 
     <script>
+        // Greek alphabet regex
+        const baseAlphabet = /[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρσςτυφχψω]/;
+
+        // Function to get the base character after normalization
+        function base(ch) {
+            return ch.normalize('NFD')[0];
+        }
+
+        // Function to apply diacritical marks based on instructions
+        function applyDiacritics(input, instructions) {
+            const combiningMacron = '\u0304'; // Combining Macron
+            const combiningBreve = '\u0306'; // Combining Breve
+
+            // Split the instructions into pairs
+            const instructionsArray = instructions.match(/[_^]\d+/g);
+            if (!instructionsArray) return input; // No instructions
+
+            // Filter Greek alphabet characters from the input
+            let filteredInput = Array.from(input).filter(char => baseAlphabet.test(base(char)));
+
+            // Apply diacritical marks based on the instructions
+            for (const instruction of instructionsArray) {
+                const type = instruction[0]; // '_' or '^'
+                const index = parseInt(instruction.slice(1), 10) - 1; // Convert to 0-based index
+
+                if (index >= 0 && index < filteredInput.length) {
+                    if (type === '_') {
+                        // Combine with Macron
+                        filteredInput[index] += combiningMacron;
+                    } else if (type === '^') {
+                        // Combine with Breve
+                        filteredInput[index] += combiningBreve;
+                    }
+                }
+            }
+
+            return filteredInput.join('');
+        }
+
         async function searchTSV() {
-            const searchValue = document.getElementById('searchBox').value.trim().toLowerCase();
+            const searchValue = document.getElementById('searchBox').value.trim();
             const response = await fetch('macrons_alg4_barytone.tsv');
             const tsvData = await response.text();
             
@@ -26,16 +85,18 @@
                 const resultCol = columns[3];
                 let sourceCol = columns[4];
                 
-                if (name === searchValue) {
+                if (name === searchValue.trim().toLowerCase()) {
                     if (sourceCol.trim().toLowerCase() === 'breve_ultima') {
                         sourceCol = 'Morphological tables for breve on the ultima';
                     }
-                    result = `Result: ${resultCol} (Source: ${sourceCol})`;
+                    // Apply diacritics based on the fourth column data
+                    const modifiedInput = applyDiacritics(searchValue, resultCol);
+                    result = `<span class="search-input">${modifiedInput}</span>: ${resultCol} (Source: ${sourceCol})`;
                     break;
                 }
             }
 
-            document.getElementById('result').textContent = result;
+            document.getElementById('result').innerHTML = result;
         }
     </script>
 </body>
