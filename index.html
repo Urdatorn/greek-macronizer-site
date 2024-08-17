@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Α Macronizer for Ancient Greek 0.1</title>
+    <title>Macronizer for Ancient Greek</title>
     <style>
+        @font-face {
+            font-family: 'GFSPorson';
+            src: url('fonts/GFSPorson.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        h1 {
+            font-family: 'GFSPorson', serif;
+        }
+
         @font-face {
             font-family: 'New Athena Unicode';
             src: url('fonts/new-athena-unicode.ttf') format('truetype');
@@ -16,8 +27,10 @@
             font-family: sans-serif; /* Use default font */
             margin: 0;
             padding: 20px;
-            background-color: white;
+            background-color: #f5eed7; /* Site background */
             color: black;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         #searchBox {
@@ -25,10 +38,17 @@
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
+            font-size: 1em; /* Default font size */
+            background-color: #d2b48c; /* Background color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add some rounding to match the box style */
+            outline: none; /* Remove ugly blue highlighting */
         }
 
         .search-input {
             font-family: 'New Athena Unicode', sans-serif;
+            font-size: 1.2em; /* Adjust the size as needed */
+            /* You can also add other styling like color, weight, etc. */
         }
 
         /* Style for the tan info box */
@@ -58,7 +78,7 @@
             overflow-y: auto;
             background-color: white;
             position: absolute;
-            width: 100%;
+            width: calc(100% - 16px); /* Adjust for padding */
             z-index: 1000;
             box-sizing: border-box;
         }
@@ -68,7 +88,7 @@
             cursor: pointer;
         }
 
-        .suggestion-item:hover {
+        .suggestion-item:hover, .highlighted {
             background-color: #f0f0f0;
         }
 
@@ -92,7 +112,14 @@
                 text-decoration: underline;
             }
 
-            #searchBox, .search-input {
+            #searchBox {
+                background-color: #333333;
+                color: #e0e0e0;
+                border: none; /* Remove border */
+            }
+
+            .search-input {
+                font-size: 1.2em;
                 background-color: #333333;
                 color: #e0e0e0;
                 border: 1px solid #444444;
@@ -114,32 +141,71 @@
                 border: 1px solid #444444;
             }
 
-            .suggestion-item:hover {
+            .suggestion-item:hover, .highlighted {
                 background-color: #555555;
+            }
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 767px) {
+            body {
+                padding: 10px;
+            }
+
+            #searchBox {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .info-box {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .search-input {
+                font-size: 1em;
+            }
+        }
+
+        /* Responsive styles for larger screens */
+        @media (min-width: 768px) {
+            #searchBox {
+                font-size: 18px; /* Larger font size for bigger screens */
+                padding: 12px;
+            }
+
+            .info-box {
+                font-size: 16px; /* Larger font size for bigger screens */
+                padding: 15px;
+            }
+
+            .search-input {
+                font-size: 1.3em;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Macron Search</h1>
+    <h1 id="title"></h1> <!-- The title element -->
     <div style="position: relative;">
         <input type="text" id="searchBox" placeholder="Start typing Ancient Greek word">
         <div id="suggestions" class="suggestions"></div>
     </div>
-    <button onclick="searchTSV()">Search</button>
     <p id="result"></p>
 
     <div class="info-box">
         <p>The macronizer is limited to tragic vocabulary, i.e. to around 41,000 word forms appearing in the extant works of Aeschylus, Sophocles, and Euripides. Begun as a master project by Albin Thörn Cleland, it is primarily based on a collation of the vowel length data of LSJ and Wiktionary. Around three thousand entries have been disambiguated because they contain dichrona in open syllables included in the scanned corpus on David Chamberlain's marvellous <a href="https://hypotactic.com" target="_blank">hypotactic.com</a>. Many endings have been macronized algorithmically based on conjugation and declension tables. Each result has a source indication.</p>
         <p>To contact me or suggest features, see the GitHub repositories for the <a href="https://github.com/Urdatorn/greek-macronizer-site" target="_blank">site</a> and the <a href="https://github.com/Urdatorn/greek-macronizer" target="_blank">backend</a>.</p>
         <p>To learn more about the history of dichrona vowels and how exactly I went about collecting the data, see my <a href="macronizer_thesis_prel.pdf" target="_blank">master thesis</a>.</p>
-        <p>εἰς τὰ τοιαῦτα δεῖ ἐκτενῶς ἀναλίσκειν.</p>
+        <p>If you have use of this site, consider clicking the button below. Remember, εἰς τὰ τοιαῦτα δεῖ ἐκτενῶς ἀναλίσκειν! (Marc. Aur. 1, 4)</p>
         
         <!-- Buy Me Ataraxia Button -->
         <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="phrontisterion" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me ataraxia" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
     </div>
 
     <script>
+        let currentIndex = -1; // Index for the currently highlighted suggestion
+
         // Greek alphabet regex
         const baseAlphabet = /[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρσςτυφχψω]/;
 
@@ -184,6 +250,7 @@
             const searchValue = this.value.trim().toLowerCase();
             const suggestionsBox = document.getElementById('suggestions');
             suggestionsBox.innerHTML = ''; // Clear previous suggestions
+            currentIndex = -1; // Reset current index
 
             if (searchValue.length > 0) {
                 const response = await fetch('macrons_alg4_barytone.tsv');
@@ -204,12 +271,13 @@
 
                     const suggestionItem = document.createElement('div');
                     suggestionItem.classList.add('suggestion-item');
-                    suggestionItem.innerHTML = `<strong>${name}</strong>: ${resultCol} (${sourceCol})`;
+                    suggestionItem.innerHTML = `<strong>${name}</strong>: ${resultCol}<br>(Source: ${sourceCol})`;
 
                     // On click, set the input value and hide suggestions
                     suggestionItem.addEventListener('click', function () {
                         document.getElementById('searchBox').value = name;
                         suggestionsBox.innerHTML = '';
+                        searchTSV();
                     });
 
                     suggestionsBox.appendChild(suggestionItem);
@@ -217,11 +285,50 @@
             }
         });
 
+        // Event listener to handle keyboard navigation in suggestions
+        document.getElementById('searchBox').addEventListener('keydown', function (e) {
+            const suggestionsBox = document.getElementById('suggestions');
+            const items = suggestionsBox.getElementsByClassName('suggestion-item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (currentIndex < items.length - 1) {
+                    currentIndex++;
+                    updateHighlight(items);
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateHighlight(items);
+                }
+            } else if (e.key === 'Enter') {
+                if (currentIndex > -1) {
+                    e.preventDefault();
+                    items[currentIndex].click();
+                } else {
+                    e.preventDefault(); // Prevent the default form submission
+                    suggestionsBox.innerHTML = ''; // Clear the suggestions
+                    searchTSV(); // Perform the search
+                }
+            }
+        });
+
+        // Function to update the highlighted suggestion
+        function updateHighlight(items) {
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('highlighted');
+            }
+            if (currentIndex > -1 && items[currentIndex]) {
+                items[currentIndex].classList.add('highlighted');
+            }
+        }
+
         async function searchTSV() {
             const searchValue = document.getElementById('searchBox').value.trim();
             const response = await fetch('macrons_alg4_barytone.tsv');
             const tsvData = await response.text();
-            
+
             const lines = tsvData.split('\n').slice(1); // Skip the header
             let result = "Not found";
 
@@ -229,21 +336,41 @@
                 const columns = line.split('\t');
                 const name = columns[0].trim().toLowerCase();
                 const resultCol = columns[3];
-                let sourceCol = columns[4];
-                
+                let sourceCol = columns[4].trim();
+
                 if (name === searchValue.trim().toLowerCase()) {
-                    if (sourceCol.trim().toLowerCase() === 'breve_ultima') {
+                    if (sourceCol.toLowerCase() === 'breve_ultima') {
                         sourceCol = 'Morphological tables for breve on the ultima';
                     }
                     // Apply diacritics based on the fourth column data
                     const modifiedInput = applyDiacritics(searchValue, resultCol);
-                    result = `<span class="search-input">${modifiedInput}</span>: ${resultCol} (Source: ${sourceCol})`;
+                    result = `<span class="search-input">${modifiedInput}</span><br>${resultCol}<br>(Source: ${sourceCol})`;
                     break;
                 }
             }
 
             document.getElementById('result').innerHTML = result;
+            document.getElementById('suggestions').innerHTML = ''; // Clear suggestions after the search
         }
+    </script>
+    <script>
+        // Array of title options
+        const titles = [
+            "συστέλλω τὰ δίχρονα!",
+            "ἐκτείνω τὰ δίχρονα!",
+            "ἢ ἐκτεταμένον ἢ συνεσταλμένον ἔχω τὰ δίχρονα!",
+            "ἐκτετα-συνεσταλμένον αὐτόματον",
+            "ἀντιαδιαφοροδιχρονιστὲς αὐτόματον"
+        ];
+
+        // Function to select a random title
+        function getRandomTitle() {
+            const randomIndex = Math.floor(Math.random() * titles.length);
+            return titles[randomIndex];
+        }
+
+        // Set the random title as the content of the h1 element
+        document.getElementById('title').innerText = getRandomTitle();
     </script>
 </body>
 </html>
