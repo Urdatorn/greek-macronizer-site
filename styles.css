@@ -1,0 +1,178 @@
+@font-face {
+    font-family: 'GFSPorson';
+    src: url('fonts/GFSPorson.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-family: 'GFSPorson', serif;
+}
+
+@font-face {
+    font-family: 'New Athena Unicode';
+    src: url('fonts/new-athena-unicode.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: sans-serif; /* Use default font */
+    margin: 0;
+    padding: 20px;
+    background-color: #f5eed7; /* Site background */
+    color: black;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.search-box {
+    font-family: 'New Athena Unicode', sans-serif;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 1em; /* Default font size */
+    background-color: #d2b48c; /* Background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add some rounding to match the box style */
+    outline: none; /* Remove ugly blue highlighting */
+}
+
+.search-input {
+    font-family: 'New Athena Unicode', sans-serif;
+    font-size: 1.2em; /* Adjust the size as needed */
+    /* You can also add other styling like color, weight, etc. */
+}
+
+/* Style for the tan info box */
+.info-box {
+    background-color: #d2b48c; /* Tan background color */
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.info-box a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.info-box a:hover {
+    text-decoration: underline;
+}
+
+/* Styles for the search suggestions */
+.suggestions {
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    position: absolute;
+    width: calc(100% - 16px); /* Adjust for padding */
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover, .highlighted {
+    background-color: #f0f0f0;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    .info-box {
+        background-color: #333333; /* Darker tan-like color for dark mode */
+        color: #e0e0e0;
+    }
+
+    .info-box a {
+        color: #80b3ff;
+    }
+
+    .info-box a:hover {
+        text-decoration: underline;
+    }
+
+    .search-box {
+        background-color: #333333;
+        color: #e0e0e0;
+        border: none; /* Remove border */
+    }
+
+    .search-input {
+        font-size: 1.2em;
+        background-color: #333333;
+        color: #e0e0e0;
+        border: 1px solid #444444;
+    }
+
+    button {
+        background-color: #444444;
+        color: #e0e0e0;
+        border: 1px solid #555555;
+    }
+
+    button:hover {
+        background-color: #555555;
+    }
+
+    .suggestions {
+        background-color: #333333;
+        color: #e0e0e0;
+        border: 1px solid #444444;
+    }
+
+    .suggestion-item:hover, .highlighted {
+        background-color: #555555;
+    }
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 767px) {
+    body {
+        padding: 10px;
+    }
+
+    #searchBox {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .info-box {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .search-input {
+        font-size: 1em;
+    }
+}
+
+/* Responsive styles for larger screens */
+@media (min-width: 768px) {
+    #searchBox {
+        font-size: 18px; /* Larger font size for bigger screens */
+        padding: 12px;
+    }
+
+    .info-box {
+        font-size: 16px; /* Larger font size for bigger screens */
+        padding: 15px;
+    }
+
+    .search-input {
+        font-size: 1.3em;
+    }
+}
