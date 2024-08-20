@@ -9,6 +9,8 @@ function base(ch) {
 }
 
 // Function to apply diacritical marks based on instructions
+import { reverseMacronsMap, reverseVrachysMap } from './maps.js';
+
 function applyDiacritics(input, instructions) {
     const combiningMacron = '\u0304'; // Combining Macron
     const combiningBreve = '\u0306'; // Combining Breve
@@ -26,12 +28,24 @@ function applyDiacritics(input, instructions) {
         const index = parseInt(instruction.slice(1), 10) - 1; // Convert to 0-based index
 
         if (index >= 0 && index < filteredInput.length) {
+            const currentChar = filteredInput[index];
+            
             if (type === '_') {
-                // Combine with Macron
-                filteredInput[index] += combiningMacron;
+                // Check reverseMacronsMap first
+                if (reverseMacronsMap[currentChar]) {
+                    filteredInput[index] = reverseMacronsMap[currentChar];
+                } else {
+                    // Combine with Macron
+                    filteredInput[index] += combiningMacron;
+                }
             } else if (type === '^') {
-                // Combine with Breve
-                filteredInput[index] += combiningBreve;
+                // Check reverseVrachysMap first
+                if (reverseVrachysMap[currentChar]) {
+                    filteredInput[index] = reverseVrachysMap[currentChar];
+                } else {
+                    // Combine with Breve
+                    filteredInput[index] += combiningBreve;
+                }
             }
         }
     }
@@ -152,8 +166,7 @@ const titles = [
     "σύστελλε τὰ δίχρονα!",
     "ἔκτεινε τὰ δίχρονα!",
     "ἢ ἐκτετᾰμένᾰ ἢ σῠνεστᾰλμένᾰ ἔχω τὰ δίχρονα!",
-    "αὐτόμᾰτον ἐκτετᾰκὸς καὶ σῠνεστᾰλκός",
-    "ᾰ̓ντῐᾰδῐᾰφοροδιχρονιστὲς αὐτόμᾰτον"
+    "αὐτόμᾰτον ἐκτετᾰκὸς καὶ σῠνεστᾰλκός"
 ];
 
 // Function to select a random title
@@ -179,4 +192,24 @@ document.getElementById('manualSearchBox').addEventListener('keydown', function 
             document.getElementById('manualResult').innerHTML = ''; // Clear result if input is not valid
         }
     }
+});
+
+// Function to copy text to clipboard
+function copyToClipboard(text) {
+    const tempInput = document.createElement("input");
+    tempInput.style.position = "absolute";
+    tempInput.style.left = "-9999px";
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+}
+
+// Add event listeners to all elements with the class 'search-input'
+document.querySelectorAll('.search-input').forEach(element => {
+    element.addEventListener('click', function() {
+        copyToClipboard(this.textContent);
+        alert(this.textContent + ' copied to clipboard!');
+    });
 });
