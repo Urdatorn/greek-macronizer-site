@@ -1,0 +1,46 @@
+<!-- templates/edit_tsv.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit TSV</title>
+    <style>
+        /* Add background colors to columns */
+        .col-1 { background-color: #f2f2f2; }
+        .col-2 { background-color: #d9edf7; }
+        .col-3 { background-color: #dff0d8; }
+        .col-4 { background-color: #fcf8e3; }
+        .col-5 { background-color: #f5c6cb; }
+        /* Add padding for better readability */
+        input {
+            padding: 5px;
+            width: 100%;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>macrons.tsv editor</h1>
+    <form method="POST" action="/">
+        <table>
+            {% for row in data %}
+            <tr>
+                {% for cell in row %}
+                <td><input type="text" name="row" value="{{ cell }}" class="col-{{ loop.index }}"></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

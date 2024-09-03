@@ -61,7 +61,7 @@ document.getElementById('searchBox').addEventListener('input', async function ()
     currentIndex = -1; // Reset current index
 
     if (searchValue.length > 0) {
-        const response = await fetch('macrons_alg4_barytone.tsv');
+        const response = await fetch('macrons.tsv');
         const tsvData = await response.text();
         const lines = tsvData.split('\n').slice(1); // Skip the header
 
@@ -134,7 +134,7 @@ function updateHighlight(items) {
 
 async function searchTSV() {
     const searchValue = document.getElementById('searchBox').value.trim();
-    const response = await fetch('macrons_alg4_barytone.tsv');
+    const response = await fetch('macrons.tsv');
     const tsvData = await response.text();
 
     const lines = tsvData.split('\n').slice(1); // Skip the header

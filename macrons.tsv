@@ -26326,12 +26326,11 @@ token	tag	lemma	macron	source
 ναῶι	p-s----d-	ναῶι		
 ναῶν	u--------	ναῶν	_2	wiktionary
 ναῶν	n-p---fg-	ναῶν	_2	wiktionary
-νδικον	a-s---nn-	νδικος		
-νεαρά	a-p---na-	νεα	_5	wiktionary
-νεαρὰ	a-p---na-	νεα	_5	barytone
+νεαρά	a-p---na-	νεαρός	^3_5	wiktionary,manual
+νεαρὰ	a-p---na-	νεαρός	^3_5	barytone,manual
 νεάζουσαν	a-s---fa-	νεά	^8	breve_ultima
 νεάγγελτον	a-s---fa-	νεάγγελτος		
-νεαγενῆ	a-s---ma-	νεαγενής		
+νεαγενῆ	a-s---ma-	νεαγενής	^3	manual
 νεάζει	v3spia---	νεάζω		
 νεάζον	v-sppann-	νεάζω		
 νεάζων	v-sppamn-	νεάζω		
@@ -40729,37 +40728,22 @@ token	tag	lemma	macron	source
 ψιλὸν	a-s---ma-	ψιλός	_2	wiktionary,barytone
 ψιλός	a-s---mn-	ψιλός	_2	wiktionary
 ψιλὸς	a-s---mn-	ψιλός	_2	barytone
-ψυχάν	d--------	ψυ		
-ψυχὰν	d--------	ψυ		barytone
-ψύθη	v3saip---	ψύθη		
+ψυχάν	n-s---fa-	ψυχή	_2_4	manual
+ψυχὰν	d--------	ψυχή	_2_4	manual
+ψύθη	n-p---nn-	ψύθος	^2	manual
 ψύθος	n-s---nn-	ψύθος	^2	wiktionary
-ψυχά	n-s---fn-	ψυχα		
-ψυχά	n-s---fv-	ψυχά		
-ψυχά	u--------	ψυχά		
-ψυχαί	n-p---fn-	ψυχά		
-ψυχάν	n-s---fa-	ψυχά		
-ψυχὰν	n-s---fa-	ψυχά		barytone
-ψυχάν	n-s---fa-	ψυχὰ		
-ψυχὰν	n-s---fa-	ψυχὰ		barytone
-ψυχᾶι	n-p---fn-	ψυχᾶ	_4	ifthimos
-ψυχᾶι	n-p---fv-	ψυχᾶ	_4	ifthimos
+ψυχά	n-s---fn-	ψυχή	_2_4	manual
+ψυχαί	n-p---fn-	ψυχή	_2	manual
+ψυχᾶι	n-s---fd-	ψυχή	_2	manual
 ψυχαγωγοῖς	a-p---md-	ψυχαγωγός	_2^4	hypotactic
-ψυχαγωγόν	a-s---ma-	ψυχαγωγὸς		
-ψυχαγωγὸν	a-s---ma-	ψυχαγωγὸς		barytone
-ψυχᾶι	n-p---fn-	ψυχᾶι	_4	ifthimos
-ψυχάν	n-s---fa-	ψυχάν		
-ψυχά	n-s---fv-	ψυχάς		
-ψυχᾶς	u--------	ψυχᾶς	_2_4	ifthimos
-ψύχειν	v--pna---	ψύχειν	_2	wiktionary
-ψυχᾷ	n-s---fd-	ψυχή	_2_4	ifthimos
-ψυχαί	n-p---fn-	ψυχή		
-ψυχαὶ	n-p---fn-	ψυχή		barytone
-ψυχάν	n-s---fa-	ψυχή		
-ψυχὰν	n-s---fa-	ψυχή		barytone
-ψυχάς	n-p---fa-	ψυχή	_4	ifthimos
-ψυχὰς	n-p---fa-	ψυχή	_4	ifthimos,barytone
-ψυχᾶς	n-s---fg-	ψυχή	_2_4	ifthimos
-ψυχᾶς	n-p---fa-	ψυχή	_2_4	ifthimos
+ψυχαγωγόν	a-s---ma-	ψυχαγωγός	_2^4	hypotactic
+ψυχαγωγὸν	a-s---ma-	ψυχαγωγός	_2^4	hypotactic
+ψυχᾶς	u--------	ψυχή	_2_4	manual
+ψύχειν	v--pna---	ψύχω	_2	wiktionary
+ψυχᾷ	n-s---fd-	ψυχή	_2	manual	
+ψυχαὶ	n-p---fn-	ψυχή	_2	manual
+ψυχάς	n-p---fa-	ψυχή	_2_4	manual
+ψυχὰς	n-p---fa-	ψυχή	_2_4	manual
 ψυχή	n-s---fd-	ψυχή	_2	wiktionary
 ψυχή	n-s---fv-	ψυχή	_2	wiktionary
 ψυχή	n-s---fn-	ψυχή	_2	wiktionary
@@ -40860,12 +40844,12 @@ token	tag	lemma	macron	source
 ὠκυτάτωι	a-s---mds	ὠκυτάτωι		
 ὠκύτητ’	n-p---na-	ὠκύτητ		
 ὠκυτόκος	a-s---mn-	ὠκυτόκος	^3	wiktionary
-ὠλβίζετ’	v3siie---	ὠλβίζετ		
-ὤλβισαν	v3paia---	ὤλβιννυμι	^6	breve_ultima
-ὤλβισ’	v3saia---	ὤλβισ		
-ὤλβισα	n-s---fn-	ὤλβισα	^6	breve_ultima
-ὤλβισαν	v3paia---	ὤλβισαν	^6	breve_ultima
-ὠλβισμένοι	v-prpemn-	ὠλβισμένοι		
+ὠλβίζετ’	v3siie---	ὀλβίζω		
+ὤλβισαν	v3paia---	ὀλβίζω	^6	breve_ultima
+ὤλβισ’	v3saia---	ὀλβίζω		
+ὤλβισα	n-s---fn-	ὀλβίζω	^6	breve_ultima
+ὤλβισαν	v3paia---	ὀλβίζω	^6	breve_ultima
+ὠλβισμένοι	v-prpemn-	ὀλβίζω		
 ὠλένας	n-p---fa-	ὠλένη	_5	wiktionary
 ὠλέσατ’	v2pama---	ὠλέσατ’		
 ὠλέσατε	v2paia---	ὠλέσατε	^5	wiktionary
@@ -40942,9 +40926,7 @@ token	tag	lemma	macron	source
 ὥρμισται	v3srie---	ὥρμισται	^4	wiktionary
 ὠρφάνευες	v2siia---	ὠρφάνευες		
 ὠρφάνισεν	v3saia---	ὠρφάνισεν		
-ὠρφανισμένος	v-srpemn-	ὠρφανισμένος		
-ὤταν	c--------	ὤταν		
-ὤταν	c--------	ὤταντε		
+ὠρφανισμένος	v-srpemn-	ὠρφανισμένος			
 ὤτι	d--------	ὤτις		
 ὤτρυναν	v3paia---	ὤτρυναν	^6	breve_ultima
 ὤτρυνε	v3siia---	ὤτρυνε	_4	wiktionary
@@ -40955,4 +40937,4 @@ token	tag	lemma	macron	source
 ὠφελήσιμα	a-p---nn-	ὠφελήσιμα	^9	breve_ultima
 ὠφελία	v1sria---	ὠφελία	^5_6	wiktionary
 ὠφέλιμον	a-s---ma-	ὠφέλιμος	^5	wiktionary
-ὤχμασεν	v3saia---	ὤχμασεν		
+ὤχμασεν	v3saia---	ὀχμάζω		
