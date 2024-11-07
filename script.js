@@ -213,3 +213,19 @@ document.querySelectorAll('.search-input').forEach(element => {
         alert(this.textContent + ' copied to clipboard!');
     });
 });
+
+// Hit counter functionality
+function updateHitCounter() {
+    // Get the current count from localStorage, or default to 0 if not present
+    let visitCount = localStorage.getItem('pageVisits');
+    visitCount = visitCount ? parseInt(visitCount, 10) + 1 : 1;
+
+    // Update localStorage with the new count
+    localStorage.setItem('pageVisits', visitCount);
+
+    // Display the visit count on the page
+    document.getElementById('visit-count').innerText = visitCount;
+}
+
+// Call the function to update and display the hit counter on page load
+updateHitCounter();
